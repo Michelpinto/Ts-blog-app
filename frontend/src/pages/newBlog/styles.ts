@@ -23,19 +23,19 @@ export const Form = styled.form`
     }
   }
 
-  /* .app .ql-container {
-  border-bottom-left-radius: 0.5em;
-  border-bottom-right-radius: 0.5em;
-  background: #fefcfc;
-} */
+  /* & div { */
+  /* height: 12rem;
+    padding: 1rem;
+    font-size: 1.6rem;
+    font-family: system-ui;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #bebebe;
 
-  /* Snow Theme */
-  /* .app .ql-snow.ql-toolbar {
-  display: block;
-  background: #eaecec;
-  border-top-left-radius: 0.5em;
-  border-top-right-radius: 0.5em;
-} */
+    &::placeholder {
+      color: #bebebe;
+    }
+  } */
 
   & button {
     height: 4rem;

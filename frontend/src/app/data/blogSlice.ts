@@ -13,7 +13,6 @@ const initialState: BlogState = {
 export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
   const response = await fetch('http://localhost:8000/api/goals');
   const res = await response.json();
-  console.log('res', res);
   return res;
 });
 
