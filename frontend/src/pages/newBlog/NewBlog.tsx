@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useQuill } from 'react-quilljs';
 import 'react-quill/dist/quill.snow.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createBlog } from '../../app/data/blogSlice';
 
 import { Div, Form } from './styles';
+import { AppDispatch } from '../../app/store';
 
 const NewBlog: React.FC = () => {
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [text, setText] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
   const blogs = useSelector((state: any) => state.blogs.blogs);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-    console.log(e.target.value);
   };
 
   const modules = {
@@ -50,35 +52,25 @@ const NewBlog: React.FC = () => {
   useEffect(() => {
     if (quill) {
       quill.on('text-change', () => {
-        setContent(quill.root.innerHTML);
+        setText(quill.root.innerHTML);
       });
     }
   }, [quill]);
 
   const createNewBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const blog = {
-    //   title,
-    //   content,
-    // };
-    // console.log(blog);
 
-    const response = await fetch('http://localhost:5000/api/blogs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title,
-        content,
-      }),
-    });
+    const blog = {
+      title,
+      text,
+    };
 
-    const data = await response.json();
-    console.log(data);
+    dispatch(createBlog(blog));
 
     setTitle('');
     quill?.setText('');
+    console.log('Blog created');
+    console.log(blogs);
   };
 
   return (
