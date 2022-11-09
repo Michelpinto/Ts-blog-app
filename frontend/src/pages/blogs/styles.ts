@@ -30,6 +30,11 @@ export const BlogDiv = styled.div`
     font-size: 1.3rem;
     color: #bebebe;
     font-weight: 300;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
 `;
 
