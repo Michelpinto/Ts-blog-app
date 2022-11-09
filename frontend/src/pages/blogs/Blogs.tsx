@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { BlogsDiv, Div, BlogDiv } from './styles';
-import SingleBlogPage from './SingleBlogPage';
 
 const Blogs: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,7 +24,7 @@ const Blogs: React.FC = () => {
           <Link key={blog._id} to={`/${blog._id}`}>
             <BlogDiv>
               <h1>{blog.title}</h1>
-              <p>{blog.text}</p>
+              <p dangerouslySetInnerHTML={{ __html: blog.text }} />
             </BlogDiv>
           </Link>
         ))}

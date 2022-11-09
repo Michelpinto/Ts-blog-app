@@ -15,7 +15,7 @@ const SingleBlogPage: React.FC = () => {
         .map((blog: any) => (
           <SingleBlogDiv key={blog._id}>
             <h1>{blog.title}</h1>
-            <p>{blog.text}</p>
+            <p dangerouslySetInnerHTML={{ __html: blog.text }} />
           </SingleBlogDiv>
         ))}
     </>
