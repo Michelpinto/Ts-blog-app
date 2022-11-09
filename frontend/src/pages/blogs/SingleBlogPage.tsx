@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { SingleBlogDiv } from './styles';
 
-interface SingleBlogProps {
-  blog?: any;
-}
-
-const SingleBlogPage: React.FC<SingleBlogProps> = (blog) => {
+const SingleBlogPage: React.FC = () => {
   const { id } = useParams();
   const blogs = useSelector((state: any) => state.data.blogs);
 

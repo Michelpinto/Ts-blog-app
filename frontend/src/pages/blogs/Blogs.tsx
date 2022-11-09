@@ -24,7 +24,8 @@ const Blogs: React.FC = () => {
         {blogs.map((blog: any) => (
           <Link key={blog._id} to={`/${blog._id}`}>
             <BlogDiv>
-              <SingleBlogPage />
+              <h1>{blog.title}</h1>
+              <p>{blog.text}</p>
             </BlogDiv>
           </Link>
         ))}

@@ -6,8 +6,6 @@ import Blogs from './pages/blogs/Blogs';
 import SingleBlogPage from './pages/blogs/SingleBlogPage';
 import NewBlog from './pages/newBlog/NewBlog';
 
-// import { Container } from './styles';
-
 const App: React.FC = () => {
   return (
     <>

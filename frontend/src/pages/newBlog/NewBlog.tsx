@@ -11,7 +11,7 @@ const NewBlog: React.FC = () => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const dispatch = useDispatch<AppDispatch>();
-  const blogs = useSelector((state: any) => state.blogs.blogs);
+  const blogs = useSelector((state: any) => state.data.blogs);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
