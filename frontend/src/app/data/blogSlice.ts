@@ -39,7 +39,7 @@ export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
 });
 
 export const blogSlice = createSlice({
-  name: 'blogs',
+  name: 'data',
   initialState,
   reducers: {},
   extraReducers: (builder) => {

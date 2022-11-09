@@ -32,3 +32,17 @@ export const BlogDiv = styled.div`
     font-weight: 300;
   }
 `;
+
+export const SingleBlogDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+
+  & h1 {
+    font-weight: 400;
+  }
+
+  & p {
+    font-size: 1.6rem;
+  }
+`;
