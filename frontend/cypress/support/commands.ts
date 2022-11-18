@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -11,7 +12,7 @@
 
 import '@testing-library/cypress/add-commands';
 
-Cypress.Commands.add('hasVisibleText', (text) => {
+Cypress.Commands.add('hasVisibleText', (text: string) => {
   cy.contains(text).scrollIntoView();
   cy.contains(text).should('be.visible');
 });
