@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 // ***********************************************
-// This example commands.ts shows you how to
+// This example commands.js shows you how to
 // create various custom commands and overwrite
 // existing commands.
 //
@@ -8,8 +9,18 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-//
-//
+
+import '@testing-library/cypress/add-commands';
+
+Cypress.Commands.add('hasVisibleText', (text: string) => {
+  cy.contains(text).scrollIntoView();
+  cy.contains(text).should('be.visible');
+});
+
+Cypress.Commands.add('clickLink', (label) => {
+  cy.get('a').contains(label).click();
+});
+
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
