@@ -69,8 +69,6 @@ const NewBlog: React.FC = () => {
 
     setTitle('');
     quill?.setText('');
-    console.log('Blog created');
-    console.log(blogs);
   };
 
   return (
