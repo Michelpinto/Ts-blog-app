@@ -8,4 +8,11 @@ describe('empty spec', () => {
     cy.hasVisibleText('Blogs').click();
     cy.hasVisibleText('My first blog using cypress');
   });
+
+  it('Gives an error', () => {
+    cy.visit('http://localhost:3000/newBlog');
+
+    cy.get('[type="submit"]').click();
+    cy.hasVisibleText('Please write something');
+  });
 });
