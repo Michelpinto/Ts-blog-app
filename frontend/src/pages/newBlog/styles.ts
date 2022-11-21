@@ -52,3 +52,10 @@ export const Form = styled.form`
     }
   }
 `;
+
+export const ErrorMsg = styled.p`
+  color: red;
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  text-align: center;
+`;
