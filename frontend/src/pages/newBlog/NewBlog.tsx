@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useQuill } from 'react-quilljs';
 import 'react-quill/dist/quill.snow.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createBlog } from '../../app/data/blogSlice';
 
-import { Div, Form } from './styles';
+import { Div, ErrorMsg, Form } from './styles';
 import { AppDispatch } from '../../app/store';
 
 const NewBlog: React.FC = () => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const dispatch = useDispatch<AppDispatch>();
-  const blogs = useSelector((state: any) => state.data.blogs);
+  const [message, setMessage] = useState('');
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -65,12 +65,13 @@ const NewBlog: React.FC = () => {
       text,
     };
 
-    dispatch(createBlog(blog));
-
-    setTitle('');
-    quill?.setText('');
-    console.log('Blog created');
-    console.log(blogs);
+    if (!title || !text) {
+      setMessage('Please write something');
+    } else {
+      dispatch(createBlog(blog));
+      setTitle('');
+      quill?.setText('');
+    }
   };
 
   return (
@@ -89,6 +90,8 @@ const NewBlog: React.FC = () => {
         </div>
         <button type='submit'>Post blog</button>
       </Form>
+
+      {message && <ErrorMsg>{message}</ErrorMsg>}
     </Div>
   );
 };
