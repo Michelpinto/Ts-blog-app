@@ -51,3 +51,10 @@ export const SingleBlogDiv = styled.div`
     font-size: 1.6rem;
   }
 `;
+
+export const StateDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.5rem;
+`;
