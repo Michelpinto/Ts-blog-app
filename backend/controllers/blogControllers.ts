@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
 const asyncHandler = require('express-async-handler');
 const Blog = require('../model/blogModel');
+const User = require('../model/userModel');
 // getBlogs
-const getBlogs = asyncHandler(async (req: Request, res: Response) => {
-  const blogs = await Blog.find().sort({ createdAt: -1 });
+const getBlogs = asyncHandler(async (req: Request | any, res: Response) => {
+  const blogs = await Blog.find({ user: req.user.id }).sort({ createdAt: -1 });
 
   res.status(200).json(blogs);
 });
 // createBlogs
-const setBlog = asyncHandler(async (req: Request, res: Response) => {
+const setBlog = asyncHandler(async (req: Request | any, res: Response) => {
   if (!req.body.title || !req.body.text) {
     res.status(400);
     throw new Error('Title is required');
@@ -17,17 +18,30 @@ const setBlog = asyncHandler(async (req: Request, res: Response) => {
   const blog = await Blog.create({
     title: req.body.title,
     text: req.body.text,
+    user: req.user.id,
   });
 
   res.status(200).json(blog);
 });
 // updateBlog
-const updateBlog = asyncHandler(async (req: Request, res: Response) => {
+const updateBlog = asyncHandler(async (req: Request | any, res: Response) => {
   const blog = await Blog.findById(req.params.id);
 
   if (!blog) {
     res.status(404);
     throw new Error('Blog not found');
+  }
+
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  if (blog.user.toString() !== user._id.toString()) {
+    res.status(401);
+    throw new Error('Not authorized');
   }
 
   const updatedBlog = await Blog.findByIdAndUpdate(
@@ -42,12 +56,24 @@ const updateBlog = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json(updatedBlog);
 });
 // deleteBlog
-const deleteBlog = asyncHandler(async (req: Request, res: Response) => {
+const deleteBlog = asyncHandler(async (req: Request | any, res: Response) => {
   const blog = await Blog.findById(req.params.id);
 
   if (!blog) {
     res.status(404);
     throw new Error('Blog not found');
+  }
+
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  if (blog.user.toString() !== user._id.toString()) {
+    res.status(401);
+    throw new Error('Not authorized');
   }
 
   await blog.deleteOne();
