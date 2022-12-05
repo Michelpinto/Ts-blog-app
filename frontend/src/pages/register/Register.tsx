@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { RegisterContainer, Form } from './registerStyles';
 
@@ -15,6 +16,12 @@ const Register: React.FC = () => {
         <input type='password' name='password' id='password' />
         <button type='submit'>Create</button>
       </Form>
+      <p>
+        Already have an account?{' '}
+        <Link to='/login'>
+          <b>Log in</b>
+        </Link>
+      </p>
     </RegisterContainer>
   );
 };

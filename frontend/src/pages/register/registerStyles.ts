@@ -9,6 +9,11 @@ export const RegisterContainer = styled.div`
   & h1 {
     margin: 2rem 0;
   }
+
+  & p {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+  }
 `;
 
 export const Form = styled.form`

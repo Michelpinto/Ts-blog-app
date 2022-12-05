@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { LoginContainer, Form } from './loginStyles';
 
@@ -13,6 +14,12 @@ const Login: React.FC = () => {
         <input type='password' name='password' id='password' />
         <button type='submit'>Log in</button>
       </Form>
+      <p>
+        Don't have an account?{' '}
+        <Link to='/register'>
+          <b>Register here</b>
+        </Link>
+      </p>
     </LoginContainer>
   );
 };
