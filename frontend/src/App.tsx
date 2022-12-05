@@ -6,6 +6,7 @@ import Blogs from './pages/blogs/Blogs';
 import SingleBlogPage from './pages/blogs/SingleBlogPage';
 import Login from './pages/login/Login';
 import NewBlog from './pages/newBlog/NewBlog';
+import Register from './pages/register/Register';
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         <Route path='/:id' element={<SingleBlogPage />} />
         <Route path='/newBlog' element={<NewBlog />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
       <Footer />
     </>
