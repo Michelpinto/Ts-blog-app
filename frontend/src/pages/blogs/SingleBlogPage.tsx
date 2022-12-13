@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Nav from '../../components/nav/Nav';
 
 import { SingleBlogDiv } from './styles';
 
@@ -10,6 +11,7 @@ const SingleBlogPage: React.FC = () => {
 
   return (
     <>
+      <Nav />
       {blogs
         .filter((blog: any) => blog._id === id)
         .map((blog: any) => (

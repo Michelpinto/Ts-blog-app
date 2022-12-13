@@ -6,6 +6,7 @@ import { createBlog } from '../../app/data/blogSlice';
 
 import { Div, ErrorMsg, Form } from './styles';
 import { AppDispatch } from '../../app/store';
+import Nav from '../../components/nav/Nav';
 
 const NewBlog: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -75,24 +76,27 @@ const NewBlog: React.FC = () => {
   };
 
   return (
-    <Div>
-      <h1>Share your amazing ideas</h1>
-      <Form onSubmit={createNewBlog}>
-        <input
-          onChange={handleTitleChange}
-          value={title}
-          name='title'
-          placeholder='Title'
-          type='text'
-        />
-        <div>
-          <div ref={quillRef} />
-        </div>
-        <button type='submit'>Post blog</button>
-      </Form>
+    <>
+      <Nav />
+      <Div>
+        <h1>Share your amazing ideas</h1>
+        <Form onSubmit={createNewBlog}>
+          <input
+            onChange={handleTitleChange}
+            value={title}
+            name='title'
+            placeholder='Title'
+            type='text'
+          />
+          <div>
+            <div ref={quillRef} />
+          </div>
+          <button type='submit'>Post blog</button>
+        </Form>
 
-      {message && <ErrorMsg>{message}</ErrorMsg>}
-    </Div>
+        {message && <ErrorMsg>{message}</ErrorMsg>}
+      </Div>
+    </>
   );
 };
 
