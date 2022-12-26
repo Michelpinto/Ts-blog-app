@@ -13,5 +13,14 @@ export const Div = styled.div`
 
 export const InsideDiv = styled.div`
   display: flex;
+  align-items: center;
   gap: 4rem;
+
+  & span {
+    cursor: pointer;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 `;
