@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { register, reset } from '../../app/data/features/authSlice';
 import { Link } from 'react-router-dom';
 
 import { RegisterContainer, Form } from './registerStyles';
+import { AppDispatch } from '../../app/store';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,18 +14,57 @@ const Register: React.FC = () => {
     password: '',
     password2: '',
   });
+  const [errorMsg, setErrorMsg] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state: any) => state.auth
+  );
 
   const { name, email, password, password2 } = formData;
+
+  useEffect(() => {
+    if (isError) {
+      setErrorMsg(message);
+    }
+
+    if (isSuccess || user) {
+      navigate('/');
+      dispatch(reset());
+    }
+
+    // dispatch(reset());
+  }, [user, isSuccess, isError, message, navigate, dispatch]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setFormData((prevState) => ({ ...prevState, [e.target.name]: value }));
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (password !== password2) {
+      setErrorMsg('Passwords do not match');
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
+    }
+  };
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <RegisterContainer>
       <h1>Create an account</h1>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <input
           placeholder='Enter your name'
           onChange={handleChange}
@@ -56,6 +99,9 @@ const Register: React.FC = () => {
         />
         <button type='submit'>Create</button>
       </Form>
+
+      <p style={{ color: 'red', textAlign: 'center' }}>{errorMsg}</p>
+
       <p>
         Already have an account?{' '}
         <Link to='/login'>
