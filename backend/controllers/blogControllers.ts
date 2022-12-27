@@ -32,14 +32,14 @@ const updateBlog = asyncHandler(async (req: Request | any, res: Response) => {
     throw new Error('Blog not found');
   }
 
-  const user = await User.findById(req.user.id);
+  // const user = await User.findById(req.user.id);
 
-  if (!user) {
+  if (!req.user) {
     res.status(404);
     throw new Error('User not found');
   }
 
-  if (blog.user.toString() !== user._id.toString()) {
+  if (blog.user.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error('Not authorized');
   }
@@ -64,14 +64,12 @@ const deleteBlog = asyncHandler(async (req: Request | any, res: Response) => {
     throw new Error('Blog not found');
   }
 
-  const user = await User.findById(req.user.id);
-
-  if (!user) {
+  if (!req.user) {
     res.status(404);
     throw new Error('User not found');
   }
 
-  if (blog.user.toString() !== user._id.toString()) {
+  if (blog.user.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error('Not authorized');
   }
