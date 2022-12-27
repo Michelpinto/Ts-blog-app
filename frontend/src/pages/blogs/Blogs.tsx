@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from '../../components/nav/Nav';
-import { fetchBlogs } from '../../app/data/blogSlice';
+import { fetchBlogs } from '../../app/data/blogFeatures/blogSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { useEffect } from 'react';

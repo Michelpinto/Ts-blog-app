@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuill } from 'react-quilljs';
 import 'react-quill/dist/quill.snow.css';
 import { useDispatch } from 'react-redux';
-import { createBlog } from '../../app/data/blogSlice';
+import { createBlog } from '../../app/data/blogFeatures/blogSlice';
 
 import { Div, ErrorMsg, Form } from './styles';
 import { AppDispatch } from '../../app/store';
