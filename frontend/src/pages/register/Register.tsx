@@ -30,10 +30,9 @@ const Register: React.FC = () => {
 
     if (isSuccess || user) {
       navigate('/');
-      dispatch(reset());
     }
 
-    // dispatch(reset());
+    dispatch(reset());
   }, [user, isSuccess, isError, message, navigate, dispatch]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -4,6 +4,9 @@ import blogService from './blogService';
 export interface BlogState {
   blogs: string[];
   isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  message: string;
 }
 
 export interface Blog {
@@ -14,6 +17,9 @@ export interface Blog {
 const initialState: BlogState = {
   blogs: [],
   isLoading: false,
+  isError: false,
+  isSuccess: false,
+  message: '',
 };
 
 export const createBlog = createAsyncThunk(
@@ -43,17 +49,22 @@ export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
 export const blogSlice = createSlice({
   name: 'data',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => initialState,
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchBlogs.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchBlogs.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.isSuccess = true;
       state.blogs = action.payload;
     });
     builder.addCase(fetchBlogs.rejected, (state) => {
       state.isLoading = false;
+      state.isError = true;
+      state.message = 'Error fetching blogs';
     });
 
     // create blog
@@ -62,12 +73,17 @@ export const blogSlice = createSlice({
     });
     builder.addCase(createBlog.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.isSuccess = true;
       state.blogs.push(action.payload);
     });
     builder.addCase(createBlog.rejected, (state) => {
       state.isLoading = false;
+      state.isError = true;
+      state.message = 'Error creating blog';
     });
   },
 });
+
+export const { reset } = blogSlice.actions;
 
 export default blogSlice.reducer;
