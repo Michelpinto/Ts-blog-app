@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import blogService from './blogService';
 
 export interface BlogState {
   blogs: string[];
@@ -17,18 +18,19 @@ const initialState: BlogState = {
 
 export const createBlog = createAsyncThunk(
   'blog/createBlog',
-  async (blog: Blog) => {
-    const response = await fetch('http://localhost:8000/api/blogs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(blog),
-    });
-
-    const data = await response.json();
-    console.log(data);
-    return data;
+  async (blog: Blog, ThunkAPI: any) => {
+    const token = ThunkAPI.getState().auth.user.token;
+    try {
+      return await blogService.createBlog(blog, token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return ThunkAPI.rejectWithValue(message);
+    }
   }
 );
 
