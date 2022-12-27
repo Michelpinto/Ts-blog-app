@@ -47,7 +47,9 @@ export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
 export const blogSlice = createSlice({
   name: 'data',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => initialState,
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchBlogs.pending, (state) => {
       state.isLoading = true;
@@ -79,5 +81,7 @@ export const blogSlice = createSlice({
     });
   },
 });
+
+export const { reset } = blogSlice.actions;
 
 export default blogSlice.reducer;
