@@ -19,9 +19,7 @@ const Nav: React.FC = () => {
 
   return (
     <Div>
-      <Link to='/'>
-        <h1>Blog website</h1>
-      </Link>
+      <Link to='/'>{user ? <h1>{user.name}'s blog</h1> : <h1>Blog</h1>}</Link>
 
       <InsideDiv>
         <Link to='/'>
