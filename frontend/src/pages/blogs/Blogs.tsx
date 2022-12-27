@@ -4,18 +4,24 @@ import { fetchBlogs } from '../../app/data/blogSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { BlogsDiv, Div, BlogDiv, StateDiv } from './styles';
 import State from '../../components/state/State';
 
 const Blogs: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const blogs = useSelector((state: any) => state.data.blogs);
+  const { user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+
     dispatch(fetchBlogs());
-  }, [dispatch]);
+  }, [dispatch, user, navigate]);
 
   return (
     <>
