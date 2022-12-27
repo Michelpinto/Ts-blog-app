@@ -12,10 +12,6 @@ const Register = async (userData: any) => {
   return response.data;
 };
 
-const logout = () => {
-  localStorage.removeItem('user');
-};
-
 const login = async (userData: any) => {
   const response = await axios.post(API_URL + 'login', userData);
 
@@ -26,10 +22,14 @@ const login = async (userData: any) => {
   return response.data;
 };
 
+const logout = () => {
+  localStorage.removeItem('user');
+};
+
 const authService = {
   Register,
-  logout,
   login,
+  logout,
 };
 
 export default authService;
