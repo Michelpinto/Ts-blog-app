@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from '../../components/nav/Nav';
-import { fetchBlogs } from '../../app/data/blogFeatures/blogSlice';
+import { fetchBlogs, reset } from '../../app/data/blogFeatures/blogSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { useEffect } from 'react';
@@ -13,6 +13,9 @@ const Blogs: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const blogs = useSelector((state: any) => state.data.blogs);
+  const { isLoading, isError, message } = useSelector(
+    (state: any) => state.data
+  );
   const { user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
@@ -21,6 +24,10 @@ const Blogs: React.FC = () => {
     }
 
     dispatch(fetchBlogs());
+
+    // return () => {
+    //   dispatch(reset());
+    // };
   }, [dispatch, user, navigate]);
 
   return (
