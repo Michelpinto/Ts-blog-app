@@ -40,11 +40,24 @@ export const createBlog = createAsyncThunk(
   }
 );
 
-export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
-  const response = await fetch('http://localhost:8000/api/blogs');
-  const res = await response.json();
-  return res;
-});
+export const fetchBlogs = createAsyncThunk(
+  'blogs/fetchBlogs',
+  async (_, ThunkAPI: any) => {
+    try {
+      const token = ThunkAPI.getState().auth.user.token;
+
+      return await blogService.fetchBlogs(token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return ThunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const blogSlice = createSlice({
   name: 'data',
@@ -61,10 +74,10 @@ export const blogSlice = createSlice({
       state.isSuccess = true;
       state.blogs = action.payload;
     });
-    builder.addCase(fetchBlogs.rejected, (state) => {
+    builder.addCase(fetchBlogs.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      state.message = 'Error fetching blogs';
+      state.message = action.payload as string;
     });
 
     // create blog
@@ -76,10 +89,10 @@ export const blogSlice = createSlice({
       state.isSuccess = true;
       state.blogs.push(action.payload);
     });
-    builder.addCase(createBlog.rejected, (state) => {
+    builder.addCase(createBlog.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      state.message = 'Error creating blog';
+      state.message = action.payload as string;
     });
   },
 });
