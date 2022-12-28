@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { InsideDiv, Div } from './styles';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, reset } from '../../app/data/features/authSlice';
+import { logout, reset } from '../../app/data/authFeatures/authSlice';
 import { AppDispatch } from '../../app/store';
 
 const Nav: React.FC = () => {

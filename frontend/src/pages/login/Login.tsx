@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login, reset } from '../../app/data/features/authSlice';
+import { login, reset } from '../../app/data/authFeatures/authSlice';
 import { Link } from 'react-router-dom';
 import { AppDispatch } from '../../app/store';
 
