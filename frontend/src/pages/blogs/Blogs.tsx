@@ -6,7 +6,7 @@ import { AppDispatch } from '../../app/store';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { BlogsDiv, Div, BlogDiv, StateDiv } from './styles';
+import { BlogsDiv, Div, BlogDiv, StateDiv, DateText } from './styles';
 import State from '../../components/state/State';
 
 const Blogs: React.FC = () => {
@@ -43,6 +43,7 @@ const Blogs: React.FC = () => {
                 <BlogDiv>
                   <h1>{blog.title}</h1>
                   <p dangerouslySetInnerHTML={{ __html: blog.text }} />
+                  <DateText>{blog.createdAt.split('T')[0]}</DateText>
                 </BlogDiv>
               </Link>
             ))
