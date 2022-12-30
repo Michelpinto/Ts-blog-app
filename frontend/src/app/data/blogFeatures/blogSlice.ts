@@ -59,6 +59,24 @@ export const fetchBlogs = createAsyncThunk(
   }
 );
 
+export const deleteBlog = createAsyncThunk(
+  'blogs/deleteBlog',
+  async (id: string, ThunkAPI: any) => {
+    try {
+      const token = ThunkAPI.getState().auth.user.token;
+      return await blogService.deleteblog(id, token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return ThunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const blogSlice = createSlice({
   name: 'data',
   initialState,
@@ -90,6 +108,21 @@ export const blogSlice = createSlice({
       state.blogs.push(action.payload);
     });
     builder.addCase(createBlog.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload as string;
+    });
+
+    // delete blog
+    builder.addCase(deleteBlog.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteBlog.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.blogs = state.blogs.filter((blog) => blog !== action.payload);
+    });
+    builder.addCase(deleteBlog.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload as string;
