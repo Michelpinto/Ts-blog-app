@@ -58,3 +58,26 @@ export const StateDiv = styled.div`
   align-items: center;
   gap: 4.5rem;
 `;
+
+export const DateText = styled.p`
+  margin-top: 2rem;
+`;
+
+export const Div2 = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  & span {
+    font-size: 2rem;
+    display: flex;
+    gap: 2rem;
+
+    & svg {
+      cursor: pointer;
+    }
+
+    & svg:nth-child(2) {
+      color: red;
+    }
+  }
+`;
