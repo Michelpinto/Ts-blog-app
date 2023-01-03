@@ -13,9 +13,9 @@ const Blogs: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const blogs = useSelector((state: any) => state.data.blogs);
-  const { isLoading, isError, message } = useSelector(
-    (state: any) => state.data
-  );
+  // const { isLoading, isError, message } = useSelector(
+  //   (state: any) => state.data
+  // );
   const { user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {

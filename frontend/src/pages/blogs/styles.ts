@@ -81,7 +81,7 @@ export const Div2 = styled.div`
       cursor: pointer;
     }
 
-    & svg:nth-child(2) {
+    & svg:nth-child(1) {
       color: red;
     }
   }

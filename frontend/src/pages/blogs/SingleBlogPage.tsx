@@ -31,7 +31,7 @@ const SingleBlogPage: React.FC = () => {
             <Div2>
               <h1>{blog.title}</h1>
               <span>
-                <IoCreateOutline />
+                {/* <IoCreateOutline /> */}
                 <IoTrashOutline onClick={() => handleDelete(blog._id)} />
               </span>
             </Div2>
