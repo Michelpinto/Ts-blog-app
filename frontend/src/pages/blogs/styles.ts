@@ -36,6 +36,11 @@ export const BlogDiv = styled.div`
     -webkit-line-clamp: 3;
     overflow: hidden;
   }
+
+  & div {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export const SingleBlogDiv = styled.div`

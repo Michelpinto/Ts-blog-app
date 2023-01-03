@@ -41,9 +41,11 @@ const Blogs: React.FC = () => {
             blogs.map((blog: any) => (
               <Link key={blog._id} to={`/${blog._id}`}>
                 <BlogDiv>
-                  <h1>{blog.title}</h1>
+                  <div>
+                    <h1>{blog.title}</h1>
+                    <DateText>{blog.createdAt.split('T')[0]}</DateText>
+                  </div>
                   <p dangerouslySetInnerHTML={{ __html: blog.text }} />
-                  <DateText>{blog.createdAt.split('T')[0]}</DateText>
                 </BlogDiv>
               </Link>
             ))
