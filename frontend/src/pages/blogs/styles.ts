@@ -36,6 +36,11 @@ export const BlogDiv = styled.div`
     -webkit-line-clamp: 3;
     overflow: hidden;
   }
+
+  & div {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export const SingleBlogDiv = styled.div`
@@ -57,4 +62,27 @@ export const StateDiv = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 4.5rem;
+`;
+
+export const DateText = styled.p`
+  margin-top: 2rem;
+`;
+
+export const Div2 = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  & span {
+    font-size: 2rem;
+    display: flex;
+    gap: 2rem;
+
+    & svg {
+      cursor: pointer;
+    }
+
+    & svg:nth-child(1) {
+      color: red;
+    }
+  }
 `;

@@ -6,16 +6,16 @@ import { AppDispatch } from '../../app/store';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { BlogsDiv, Div, BlogDiv, StateDiv } from './styles';
+import { BlogsDiv, Div, BlogDiv, StateDiv, DateText } from './styles';
 import State from '../../components/state/State';
 
 const Blogs: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const blogs = useSelector((state: any) => state.data.blogs);
-  const { isLoading, isError, message } = useSelector(
-    (state: any) => state.data
-  );
+  // const { isLoading, isError, message } = useSelector(
+  //   (state: any) => state.data
+  // );
   const { user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
@@ -41,7 +41,10 @@ const Blogs: React.FC = () => {
             blogs.map((blog: any) => (
               <Link key={blog._id} to={`/${blog._id}`}>
                 <BlogDiv>
-                  <h1>{blog.title}</h1>
+                  <div>
+                    <h1>{blog.title}</h1>
+                    <DateText>{blog.createdAt.split('T')[0]}</DateText>
+                  </div>
                   <p dangerouslySetInnerHTML={{ __html: blog.text }} />
                 </BlogDiv>
               </Link>
