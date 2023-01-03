@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from '../../components/nav/Nav';
-import { fetchBlogs, reset } from '../../app/data/blogFeatures/blogSlice';
+import { fetchBlogs } from '../../app/data/blogFeatures/blogSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { useEffect } from 'react';
@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { BlogsDiv, Div, BlogDiv, StateDiv, DateText } from './styles';
 import State from '../../components/state/State';
+import { reset } from '../../app/data/authFeatures/authSlice';
 
 const Blogs: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,9 +26,9 @@ const Blogs: React.FC = () => {
 
     dispatch(fetchBlogs());
 
-    // return () => {
-    //   dispatch(reset());
-    // };
+    return () => {
+      dispatch(reset());
+    };
   }, [dispatch, user, navigate]);
 
   return (
