@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Blog } from './blogSlice';
 
-const API_URL = 'http://localhost:8000/api/blogs/';
+const API_URL = '/api/blogs/';
 
 const createBlog = async (blog: Blog, token: any) => {
   const config = {

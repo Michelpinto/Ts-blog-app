@@ -5,7 +5,7 @@ function Footer() {
   return (
     <Div>
       <span></span>
-      <p>Michel Pinto ©</p>
+      <p>Michel dev ©</p>
     </Div>
   );
 }
