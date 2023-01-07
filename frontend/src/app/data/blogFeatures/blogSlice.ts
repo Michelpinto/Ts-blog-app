@@ -59,6 +59,25 @@ export const fetchBlogs = createAsyncThunk(
   }
 );
 
+export const getBlog = createAsyncThunk(
+  'blogs/getBlog',
+  async (id: string, ThunkAPI: any) => {
+    try {
+      const token = ThunkAPI.getState().auth.user.token;
+
+      return await blogService.getBlog(id, token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return ThunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const deleteBlog = createAsyncThunk(
   'blogs/deleteBlog',
   async (id: string, ThunkAPI: any) => {
@@ -93,6 +112,20 @@ export const blogSlice = createSlice({
       state.blogs = action.payload;
     });
     builder.addCase(fetchBlogs.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload as string;
+    });
+    // get blog
+    builder.addCase(getBlog.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getBlog.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.blogs = state.blogs.filter((blog) => blog !== action.payload);
+    });
+    builder.addCase(getBlog.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload as string;
