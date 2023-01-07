@@ -1,5 +1,6 @@
 const path = require('path');
-import express from 'express';
+// const express = require('express');
+import express, { Express, Request, Response } from 'express';
 const cors = require('cors');
 
 const { errorHandler } = require('./middleware/errorMiddleware');
@@ -7,7 +8,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 dotenv.config();
 
-const app = express();
+const app: Express = express();
 const port = process.env.PORT || 8000;
 connectDB();
 
@@ -20,11 +21,11 @@ app.use('/api/users', require('./routes/userRoutes'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, './frontend/build')));
-  app.get('*', (req, res) =>
+  app.get('*', (req: Request, res: Response) =>
     res.sendFile(path.resolve(__dirname, './frontend/build/index.html'))
   );
 } else {
-  app.get('/', (req, res) => {
+  app.get('/', (req: Request, res: Response) => {
     res.send('Please set to production...');
   });
 }
