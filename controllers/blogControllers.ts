@@ -8,6 +8,18 @@ const getBlogs = asyncHandler(async (req: Request | any, res: Response) => {
 
   res.status(200).json(blogs);
 });
+// getBlog
+const getBlog = asyncHandler(async (req: Request | any, res: Response) => {
+  const blog = await Blog.findById(req.params.id);
+
+  if (!blog) {
+    res.status(404);
+    throw new Error('Blog not found');
+  }
+
+  res.status(200).json(blog);
+});
+
 // createBlogs
 const setBlog = asyncHandler(async (req: Request | any, res: Response) => {
   if (!req.body.title || !req.body.text) {
@@ -31,8 +43,6 @@ const updateBlog = asyncHandler(async (req: Request | any, res: Response) => {
     res.status(404);
     throw new Error('Blog not found');
   }
-
-  // const user = await User.findById(req.user.id);
 
   if (!req.user) {
     res.status(404);
@@ -84,4 +94,5 @@ module.exports = {
   setBlog,
   updateBlog,
   deleteBlog,
+  getBlog,
 };

@@ -2,8 +2,9 @@
   "name": "new-node-pratice",
   "version": "1.0.0",
   "description": "pratice",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
+    "build": "npx tsc",
     "start": "node server.ts",
     "server": "nodemon server.ts"
   },

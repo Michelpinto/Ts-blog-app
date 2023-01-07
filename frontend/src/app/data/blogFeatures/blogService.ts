@@ -26,6 +26,17 @@ const fetchBlogs = async (token: any) => {
   return response.data;
 };
 
+const getBlog = async (id: string, token: any) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(`${API_URL}${id}`, config);
+  return response.data;
+};
+
 const deleteblog = async (id: string, token: any) => {
   const config = {
     headers: {
@@ -40,6 +51,7 @@ const deleteblog = async (id: string, token: any) => {
 const blogService = {
   createBlog,
   fetchBlogs,
+  getBlog,
   deleteblog,
 };
 
