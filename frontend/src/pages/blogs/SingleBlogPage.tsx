@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Nav from '../../components/nav/Nav';
-import { IoTrashOutline, IoCreateOutline } from 'react-icons/io5';
+import { IoTrashOutline } from 'react-icons/io5';
 import { deleteBlog } from '../../app/data/blogFeatures/blogSlice';
 import { AppDispatch } from '../../app/store';
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ import { Div2, SingleBlogDiv } from './styles';
 const SingleBlogPage: React.FC = () => {
   const { id } = useParams();
   const blogs = useSelector((state: any) => state.data.blogs);
+  const { isLoading } = useSelector((state: any) => state.data);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -20,6 +21,10 @@ const SingleBlogPage: React.FC = () => {
     dispatch(deleteBlog(id));
     navigate('/');
   };
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>

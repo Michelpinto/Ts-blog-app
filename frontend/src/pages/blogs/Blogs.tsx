@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from '../../components/nav/Nav';
-import { fetchBlogs } from '../../app/data/blogFeatures/blogSlice';
+import { fetchBlogs, getBlog } from '../../app/data/blogFeatures/blogSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../app/store';
 import { useEffect } from 'react';
@@ -31,6 +31,11 @@ const Blogs: React.FC = () => {
     };
   }, [dispatch, user, navigate]);
 
+  const handleGetBlog = (id: string) => {
+    dispatch(getBlog(id));
+    navigate(`/${id}`);
+  };
+
   return (
     <>
       <Nav />
@@ -40,15 +45,13 @@ const Blogs: React.FC = () => {
         <BlogsDiv>
           {blogs.length > 0 ? (
             blogs.map((blog: any) => (
-              <Link key={blog._id} to={`/${blog._id}`}>
-                <BlogDiv>
-                  <div>
-                    <h1>{blog.title}</h1>
-                    <DateText>{blog.createdAt.split('T')[0]}</DateText>
-                  </div>
-                  <p dangerouslySetInnerHTML={{ __html: blog.text }} />
-                </BlogDiv>
-              </Link>
+              <BlogDiv key={blog._id} onClick={() => handleGetBlog(blog._id)}>
+                <div>
+                  <h1>{blog.title}</h1>
+                  <DateText>{blog.createdAt.split('T')[0]}</DateText>
+                </div>
+                <p dangerouslySetInnerHTML={{ __html: blog.text }} />
+              </BlogDiv>
             ))
           ) : (
             <StateDiv>
