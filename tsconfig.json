@@ -8,5 +8,6 @@
     "skipLibCheck": true,
     "outDir": "./build",
     "rootDir": "/"
-  }
+  },
+  "include": ["src/**/*", "**/*.ts", "**/*.jsx"]
 }
