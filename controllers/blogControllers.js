@@ -1,15 +1,14 @@
-import { Request, Response } from 'express';
 const asyncHandler = require('express-async-handler');
 const Blog = require('../model/blogModel');
 const User = require('../model/userModel');
 // getBlogs
-const getBlogs = asyncHandler(async (req: Request | any, res: Response) => {
+const getBlogs = asyncHandler(async (req, res) => {
   const blogs = await Blog.find({ user: req.user.id }).sort({ createdAt: -1 });
 
   res.status(200).json(blogs);
 });
 // getBlog
-const getBlog = asyncHandler(async (req: Request | any, res: Response) => {
+const getBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.id);
 
   if (!blog) {
@@ -21,7 +20,7 @@ const getBlog = asyncHandler(async (req: Request | any, res: Response) => {
 });
 
 // createBlogs
-const setBlog = asyncHandler(async (req: Request | any, res: Response) => {
+const setBlog = asyncHandler(async (req, res) => {
   if (!req.body.title || !req.body.text) {
     res.status(400);
     throw new Error('Title is required');
@@ -36,7 +35,7 @@ const setBlog = asyncHandler(async (req: Request | any, res: Response) => {
   res.status(200).json(blog);
 });
 // updateBlog
-const updateBlog = asyncHandler(async (req: Request | any, res: Response) => {
+const updateBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.id);
 
   if (!blog) {
@@ -66,7 +65,7 @@ const updateBlog = asyncHandler(async (req: Request | any, res: Response) => {
   res.status(200).json(updatedBlog);
 });
 // deleteBlog
-const deleteBlog = asyncHandler(async (req: Request | any, res: Response) => {
+const deleteBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.id);
 
   if (!blog) {
