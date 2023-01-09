@@ -1,10 +1,4 @@
-import { Request, Response } from 'express';
-
-interface IError extends Error {
-  status?: number;
-}
-
-const errorHandler = (err: IError, req: Request, res: Response, next: any) => {
+const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
 
   res.status(statusCode);
